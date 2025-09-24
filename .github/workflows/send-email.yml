@@ -1,0 +1,41 @@
+# A simple name for your workflow
+name: Email Notification on Push
+
+# This specifies the trigger for the action
+on:
+  push:
+    branches: [ main ] # Runs only on pushes to the 'main' branch
+
+# This defines the job that will run
+jobs:
+  send_email_notification:
+    runs-on: ubuntu-latest # Use a standard virtual machine
+    steps:
+      # Step 1: Check out the repository's code
+      - uses: actions/checkout@v4
+
+      # Step 2: Send the email
+      - name: Send email
+        uses: dawidd6/action-send-mail@v3
+        with:
+          # Required: Your mail server address
+          server_address: smtp.gmail.com
+          server_port: 587
+
+          # Required: Your email account credentials
+          # 🔒 IMPORTANT: Use GitHub Secrets for your username and password!
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+
+          # Required: Email subject and body
+          subject: '[${{ github.repository }}] New Commit Pushed'
+          body: |
+            A new commit was just pushed to the repository.
+
+            Commit message: "${{ github.event.head_commit.message }}"
+
+            See the changes here: ${{ github.event.head_commit.url }}
+
+          # Required: To and From email addresses
+          to: happynice1008@gmail.com
+          from: artagjargalsaikhan@gmail.com
