@@ -1,50 +1,106 @@
-# qPlasmon - Complete Dependencies for Real Implementation
-# Solar Panel Efficiency Optimization Framework - Latest Versions
+###############################################
+# Project Requirements (Polished / Curated)
+# Optical Simulation of Plasmonic Solar Cell
+#
+# This list has been MINIMIZED to match the actual
+# imports used in the current Jupyter notebooks:
+#   meep-example01.ipynb
+#   meep-example02.ipynb
+#   meep-example03.ipynb
+#   meep-example-resonant-cavity.ipynb
+#
+# If you later add data handling, ML, or optimization
+# features, move those packages into separate optional
+# requirement files (see templates below).
+###############################################
 
-# Core Scientific Libraries - Latest
-numpy>=1.26.0
-pandas>=2.1.4
-scipy>=1.11.4
+########## CORE RUNTIME ##########
+# Finite-Difference Time-Domain (FDTD) engine.
+# Strongly recommended to install via conda-forge due to compiled deps (MPI, HDF5):
+#   conda create -n plasmonic -c conda-forge meep=1.28 numpy matplotlib h5py ipython jupyterlab
+# NOTE: "pip install meep" on Windows often fails; prefer Conda or WSL.
+meep>=1.28,<2.0
 
-# Machine Learning - Latest PyTorch
-torch>=2.1.1
-torchvision>=0.16.1
-scikit-learn>=1.3.2
+# Numerical arrays used throughout simulations.
+numpy>=1.24,<2.0
 
-# FDTD Electromagnetic Simulation - Latest MEEP
-meep>=1.28.0
-# Install via: conda install -c conda-forge pymeeus
+# Plotting & animation of field distributions.
+matplotlib>=3.7,<4.0
 
-# Visualization - Latest
-matplotlib>=3.8.2
-seaborn>=0.13.0
-plotly>=5.17.0
+# HDF5 I/O (Meep outputs field data as .h5 files.)
+h5py>=3.9,<4.0
 
-# Advanced Optimization - Real implementations
-ipopt>=1.13.4
-nlopt>=2.7.1
+########## INTERACTIVE / NOTEBOOK ##########
+# Provides IPython shell features & display utilities (e.g., Video) used in notebooks.
+ipython>=8.15,<9.0
+# Jupyter front-end (classic or Lab). Install one; jupyterlab recommended.
+jupyterlab>=4.0,<5.0
 
-# Data processing - Latest
-h5py>=3.10.0
-openpyxl>=3.1.2
+########## OPTIONAL EXTRAS (UNUSED CURRENTLY) ##########
+# The following groups are commented out because they are *not* imported in the existing notebooks.
+# Uncomment (or move to separate files like requirements-ml.txt / requirements-opt.txt) when needed.
 
-# Performance and Utilities - Latest
-tqdm>=4.66.1
-joblib>=1.3.2
-pyyaml>=6.0.1
-numba>=0.58.1
+## --- Scientific / Analysis ---
+# pandas>=2.1.0
+# scipy>=1.11.0
 
-# Real-time computation support
-cython>=3.0.6
+## --- Visualization (Extended) ---
+# seaborn>=0.13.0
+# plotly>=5.17.0
 
-# Jupyter support for interactive development
-jupyter>=1.0.0
-ipywidgets>=8.1.1
+## --- Machine Learning / Models ---
+# torch>=2.1.0
+# torchvision>=0.16.0
+# scikit-learn>=1.3.0
 
-# Testing framework
-pytest>=7.4.3
-pytest-cov>=4.1.0
+## --- Optimization / Solvers ---
+# ipopt>=1.13.0
+# nlopt>=2.7.0
 
-# Documentation
-sphinx>=7.2.6
-sphinx-rtd-theme>=1.3.0
+## --- Data Formats / Excel ---
+# openpyxl>=3.1.0
+
+## --- Performance Utilities ---
+# numba>=0.58.0
+# cython>=3.0.0
+# joblib>=1.3.0
+# tqdm>=4.66.0
+# pyyaml>=6.0.0
+
+########## DEV / QA (OPTIONAL) ##########
+# For testing: place into requirements-dev.txt if adopting multi-file strategy.
+# pytest>=7.4.0
+# pytest-cov>=4.1.0
+
+########## DOCS (OPTIONAL) ##########
+# sphinx>=7.2.0
+# sphinx-rtd-theme>=1.3.0
+
+###############################################
+# HOW TO EXTEND
+# 1. Keep this file lean: only packages required at runtime.
+# 2. Add extras in separate files:
+#       requirements-ml.txt, requirements-dev.txt, requirements-docs.txt
+# 3. Use pinned upper bounds (<) to reduce surprise breakages while allowing patch updates.
+# 4. Regenerate a lock file (pip-tools / conda env export) for reproducibility in production.
+###############################################
+
+###############################################
+# TEMPLATES (UNCOMMENT & PLACE IN NEW FILES)  #
+###############################################
+# Example: requirements-dev.txt
+#   -r requirements.txt
+#   pytest>=7.4.0,<8.0
+#   pytest-cov>=4.1.0,<5.0
+#
+# Example: requirements-ml.txt
+#   -r requirements.txt
+#   torch>=2.1.0,<2.2
+#   torchvision>=0.16.0,<0.17
+#   scikit-learn>=1.3.0,<1.4
+#
+# Example: requirements-opt.txt
+#   -r requirements.txt
+#   ipopt>=1.13.0,<1.14
+#   nlopt>=2.7.0,<2.8
+###############################################
